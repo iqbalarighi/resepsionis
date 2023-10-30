@@ -17,22 +17,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Auth::routes();
+Auth::routes([
+
+  // 'register' => false, // Register Routes...
+
+  // 'reset' => false, // Reset Password Routes...
+
+  // 'verify' => false, // Email Verification Routes...
+
+]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/admin', [Controller::class, 'admin'])->name('admin');
-Route::get('/buku_tamu', [Bukutamu::class, 'bukutamu'])->name('buku_tamu');
+Route::get('/safety_induction_soemitro', [Bukutamu::class, 'bukutamu'])->name('safety_induction_soemitro');
 
-Auth::routes([
-
-  'register' => false, // Register Routes...
-
-  'reset' => false, // Reset Password Routes...
-
-  'verify' => false, // Email Verification Routes...
-
-]);
