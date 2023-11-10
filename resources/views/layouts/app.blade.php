@@ -13,9 +13,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> --}}
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @livewireStyles
 </head>
 <body>
     <div id="app">
@@ -78,5 +81,16 @@
             @yield('content')
         </main>
     </div>
+
+    {{-- flash timeout --}}
+<script type="text/javascript">
+    setTimeout(function(){
+     $("#timeout").fadeTo(2000, 300).slideUp(300, function() {
+      $("#timeout").slideUp(300);
+    });
+    }, 500 ); // 5 secs
+</script>
+{{-- flash timeout --}}
+@livewireScripts
 </body>
 </html>

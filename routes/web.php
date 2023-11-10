@@ -31,8 +31,19 @@ Auth::routes([
 
 ]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::controller(HomeController::class)->group(function () {
+Route::get('/home', 'index')->name('home');
+Route::get('/selfie/{id}', 'selfie');
+Route::get('/home/jam_pulang/{id}', 'checkout');
+Route::delete('/hapus-tamu/{id}', 'delete');
 
-Route::get('/admin', [Controller::class, 'admin'])->name('admin');
-Route::get('/safety_induction_soemitro', [Bukutamu::class, 'bukutamu'])->name('safety_induction_soemitro');
+
+});
+
+
+Route::controller(Bukutamu::class)->group(function () {
+  Route::get('/safety_induction_soemitro',  'bukutamu')->name('safety_induction_soemitro');
+  Route::post('/simpan', 'store')->name('simpan');
+  Route::get('/konfirmasi/{nama}',  'konfirm');
+});
 

@@ -75,16 +75,36 @@
     }
 }
 </style>
+
 <div class="container" style="background-color: rgb(232 179 179);">
+
+        <!-- Notifikasi -->
+        @if ($message = Session::get('sukses'))
+            <div id="timeout" align="center" class="alert alert-success alert-block flex flex-col gap-4 md:flex-row md:items-center md:justify-between" style="width: 80%; margin: 0 auto; ;" role="alert">
+                <div class="row">
+                    <div class="col">
+        <div class="card-text" align="center">
+                    {{ $message }}
+        </div>
+                    </div>
+                    <div class="col-md-auto">
+        <div style="float: right;">
+        <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close" align="right"></button>
+        </div>                
+                    </div>
+                </div>
+            </div>
+        @endif
+
     <div class="row justify-content-center">
         <div class="col-md-6 mt-3">
-            <div class="card">
+            <div class="card mb-3">
                 <img src="{{asset('storage/img/logo-ojk.png')}}" class="card-img mx-auto p-2" width="300" alt="...">
-                <div class="card-title" style="background-color: white;" align="center" > <font size="4"><b>Buku Tamu dan <i>Safety Induction</i> Otoritas Jasa Keuangan (OJK) - Gedung Soemitro Djojohadikusumo</b></font> </div>
+                <div class="card-title" style="background-color: white;" align="center" > <font size="4"><b><i>Safety Induction</i> Otoritas Jasa Keuangan (OJK) - Gedung Soemitro Djojohadikusumo</b></font> </div>
                 <div class="card-header rata" >Sebelum melakukan penukaran Kartu Identitas untuk memasuki Area Gedung OJK Soemitro, Anda diwajibkan untuk mengisi data berikut dan membaca beberapa informasi terkait dengan prosedur keselamatan berikut ini:</div>
 
                 <div class="card-body pt-1">
-                    <form method="POST" action="" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('simpan')}}" enctype="multipart/form-data">
                         @csrf
 <div class="mb-2" >
 <font size="2" color="red">*</font><font size="1"> Menunjukkan kolom yang wajib diisi</font>
@@ -106,10 +126,10 @@
                         </div>
 
                         <div class="row mb-3" >
-                            <label style="vertical-align: middle;" for="perusahaan" class="col-md-4 col-form-label text-md-end">{{ __('Nama Perusahaan/Institusi') }}<font color="red">*</font></label>
+                            <label style="vertical-align: middle;" for="institusi" class="col-md-4 col-form-label text-md-end">{{ __('Nama Perusahaan/Institusi') }}<font color="red">*</font></label>
 
                             <div class="col-md-6 mt-auto mb-auto" >
-                                <input style="vertical-align: middle;" id="perusahaan" type="text" class="form-control" name="perusahaan" required autofocus>
+                                <input style="vertical-align: middle;" id="institusi" type="text" class="form-control" name="institusi" required autofocus>
                             </div>
                         </div>
 
@@ -126,7 +146,7 @@
                             <label for="kunjungan" class="col-md-4 col-form-label text-md-end">{{ __('Keperluan Kunjungan') }}<font color="red">*</font> <br><font size="1">(Tambahkan nama PIC OJK dan Satker yang dituju)</font></label>
 
                             <div class="col-md-6 mt-auto mb-auto">
-                                <input id="kunjungan" type="text" placeholder="" class="form-control" name="kunjungan" required autofocus>
+                                <textarea id="kunjungan" type="text" placeholder="" class="form-control" name="kunjungan" required autofocus></textarea>
                             </div>
                         </div>
 
@@ -139,14 +159,14 @@
                         <label for="foto" class="col-md-4 col-form-label text-md-end mt-auto mb-auto"><img id="file-ip-1-preview" class="relative object-cover"></label>
                     </div>
                     <div id="myDIV" >
-                        <input type="file" id="foto" class="form-control pb-0 pt-0" name="foto" accept="image/*" onchange="showPreview(event); " style="display: ;" capture autofocus hidden>
+                        <input type="file" id="foto" class="form-control pb-0 pt-0" name="selfie" accept="image/*" onchange="showPreview(event); " style="display: ;" capture autofocus hidden>
                         <label align="center" for="foto" title="Klik Untuk Upload Foto Personil" class="btn btn-primary" style="margin-top: -30px;"><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Buka Kamera</label>
                     </div>
                     </div> 
                             </div>
                         </div>
 
-                        <div class="row mb-3">
+                        {{-- <div class="row mb-3">
                             <label for="identitas" class="col-md-4 col-form-label text-md-end"><i>Upload</i>{{ __(' Foto Kartu Identitas yang Ditukarkan') }}<font color="red">*</font> <br><font size="1">(KTP/SIM/KITAS)</font></label>
 
                         <div class="col-md-6 mt-auto mb-auto">
@@ -156,13 +176,13 @@
                         
                     </div>
                     <div id="myDIV2" >
-                        <input type="file" id="identitas" class="form-control pb-0 pt-0" name="identitas" accept="image/*"  onchange="showPreview2(event); " style="display: ;" capture  autofocus hidden>
+                        <input type="file" id="identitas" class="form-control pb-0 pt-0" name="identitas" accept="image/*"  onchange="showPreview2(event); " style="display: ;" capture  autofocus hidden required>
                         <label align="center" for="identitas" title="Klik Untuk Upload Foto Personil" class="btn btn-primary" style="margin-top: -30px;"><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Buka Kamera</label>
                     </div>
                 </div> 
 
                             </div>
-                        </div>
+                        </div> --}}
 
                     <div class="row mb-3">
                                 <div class="card-text rata">
@@ -309,8 +329,8 @@
                         <div class="row mb-0">
                             <div class="col-md-15">
                                 <center>
-                                <button type="submit" class="btn btn-primary" onclick="gambar()" >
-                                    {{ __('Register') }}
+                                <button id='button'  class="btn btn-primary" >
+                                    {{ __('Kirim') }}
                                 </button>
                                 </center>
                             </div>
@@ -412,20 +432,33 @@ modal2.onclick = function() {
     preview2.style.width = "100px";
     preview2.hidden = false;
     xx.style.display = "none";
+
   }
 }
 </script> 
-<script>
+{{-- <script>
     function gambar(){
         x = document.getElementById("file-ip-1-preview");
         y = document.getElementById("file-ip-1-preview2");
+
         if(x.src == false){
             alert('Oops, Anda Belum Ambil Foto Selfie');
         } else if (y.src == false){
             alert('Oops, Anda Belum Ambil Foto Identitas');
-        }
-    }
-</script>
+        } 
+}
+</script>  --}}
+{{-- <script>
+        $(window).on('load', function(){
+       var x = document.getElementById("file-ip-1-preview");
+       var y = document.getElementById("file-ip-1-preview2");
+       var z = document.getElementById("button");
+
+        if(x.src == true && y.src == true){
+            z.type = "submit";
+        } 
+});
+</script> --}}
 <script>
     function confirm(){
        var c1 = document.getElementById("confirm1");
