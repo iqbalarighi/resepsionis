@@ -13,7 +13,7 @@ class Bukutamu extends Component
     public function render()
     {
         return view('livewire.bukutamu', [
-            'tamu' => BukutamuModel::latest()->paginate(5),
+            'tamu' => BukutamuModel::latest()->paginate(10),
         ]);
     }
 }

@@ -6,7 +6,10 @@ use App\Models\BukutamuModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Carbon\carbon;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Http\RedirectResponse;
+use Intervention\Image\Facades\Image as ResizeImage;
 
 class HomeController extends Controller
 {
@@ -71,8 +74,73 @@ class HomeController extends Controller
     }
 
 
-    public function selfie()
+    public function selfie($id)
     {
-       return view('admin.selfie');
+       return view('admin.selfie', compact('id'));
+    }    
+
+    public function identitas($id)
+    {
+       return view('admin.identitas', compact('id'));
+    }
+
+    public function fotoself(Request $request, $id)
+    {
+        $iden = BukutamuModel::findOrFail($id);
+        $idtamu = $iden->idtamu;
+
+        $img = $request->selfie;
+        $folderPath = public_path('storage/buku_tamu/'.$idtamu.'/');
+        
+        $image_parts = explode(";base64,", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        
+        $image_base64 = base64_decode($image_parts[1]);
+        $fileName = uniqid() . '.png';
+        
+        $file = $folderPath . $fileName;
+        !is_dir($file) && File::makeDirectory($folderPath, $mode = 0777, true, true);
+        // Storage::put($file, $image_base64);
+        ResizeImage::make($img)
+                     ->resize(200, 300)
+                     ->save($file);
+
+        $iden->selfie = $fileName;
+        $iden->save();
+
+        return redirect('home')
+        ->with('success', 'Foto Identitas Tersimpan');
+    }
+
+    public function fotoid(Request $request, $id)
+    {
+        $iden = BukutamuModel::findOrFail($id);
+        $idtamu = $iden->idtamu;
+
+        $img = $request->identitas;
+        $folderPath = public_path('storage/buku_tamu/'.$idtamu.'/');
+        
+        $image_parts = explode(";base64,", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+        
+        $image_base64 = base64_decode($image_parts[1]);
+        $fileName = uniqid() . '.png';
+        
+        $file = $folderPath . $fileName;
+        !is_dir($file) && File::makeDirectory($folderPath, $mode = 0777, true, true);
+        // Storage::put($file, $image_base64);
+        ResizeImage::make($img)
+                     ->resize(300, 200)
+                     ->save($file);
+
+        $iden->identitas = $fileName;
+        $iden->save();
+
+        return redirect('home')
+        ->with('success', 'Foto Identitas Tersimpan');
+
     }
 }
+

@@ -1,5 +1,5 @@
 <div>
-<div class="card-body overflow" style="overflow-x: auto;" wire:poll>
+<div class="card-body overflow" style="overflow-x: auto;" wire:poll.5s>
     <table class="table table-striped table-hover table-sm table-borderless table-responsive" style="">
                         <thead>
                         <tr class="text-center table-info">
@@ -31,66 +31,19 @@
                         {{-- <button class="btn"></button> --}}
                         <span align="center" onclick="window.location='/selfie/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
                         @else 
-                            <img data-toggle="modal" data-target="#foto{{$key}}" src="{{ URL::asset('storage/buku_tamu/'.$item->idtamu.'/'.$item->selfie) }}" width="30" height="40">
-                                                <!-- Modal -->
-                                <div class="modal fade "
-                                    id="foto{{$key}}"
-                                    tabindex="-1"
-                                    role="dialog"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
-                                     
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content" style="margin-top: 40%;">
-                                            <!-- Add image inside the body of modal -->
-                                            <div align="center" class="modal-body center" >
-                                                <img src="{{ URL::asset('storage/buku_tamu/'.$item->idtamu.'/'.$item->selfie) }}">
-                                            </div>
-                                            {{-- <div class="modal-footer">
-                                            <button type="button"
-                                                    class="btn btn-secondary"
-                                                    data-dismiss="modal">
-                                                    Close
-                                            </button>
-                                            </div> --}}
-                                        </div>
-                                    </div>
-                                </div>
-                            {{-- end of modal --}}
+                        <a href="{{ URL::asset('storage/buku_tamu/'.$item->idtamu.'/'.$item->selfie) }}" target="_blank">
+                            <img data-toggle="modal"  src="{{ URL::asset('storage/buku_tamu/'.$item->idtamu.'/'.$item->selfie) }}" width="30" height="40">
+                        </a>                      
                         @endif
                             </td>
 
                             <td>
                         @if($item->identitas == null)
-                        <span align="center" onclick="window.location='/selfie/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
+                        <span align="center" onclick="window.location='/identitas/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
                         @else
+                        <a href="{{ URL::asset('storage/buku_tamu/'.$item->idtamu.'/'.$item->identitas) }}" target="_blank">
                                 <img data-toggle="modal" data-target="#id{{$key}}" src="{{ URL::asset('storage/buku_tamu/'.$item->idtamu.'/'.$item->identitas) }}" width="45" height="30">
-                                                    <!-- Modal -->
-                                    <div class="modal fade "
-                                        id="id{{$key}}"
-                                        tabindex="-1"
-                                        role="dialog"
-                                        aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
-                                         
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content" style="margin-top: 40%;">
-                                                <!-- Add image inside the body of modal -->
-                                                <div align="center" class="modal-body center">
-                                                    <img src="{{ URL::asset('storage/buku_tamu/'.$item->idtamu.'/'.$item->identitas) }}">
-                                                </div>
-                                                {{-- <div class="modal-footer">
-
-                                                <button type="button"
-                                                        class="btn btn-secondary"
-                                                        data-dismiss="modal">
-                                                        Close
-                                                </button>
-                                                </div> --}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                {{-- end of modal --}}
+                        </a>                            
                         @endif
 
                             </td>

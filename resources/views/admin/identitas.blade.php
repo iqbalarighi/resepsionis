@@ -9,21 +9,21 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{url('/foto_selfie/'.$id)}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{url('/foto_identitas/'.$id)}}" enctype="multipart/form-data">
         @csrf
         <div class="row">
             <div class="col-md-6">
                 <div id="my_camera"></div>
                 <br/>
                 <input type=button value="Take Snapshot" onClick="take_snapshot()">
-                <input type="hidden" name="selfie" class="image-tag">
+                <input type="hidden" name="identitas" class="image-tag">
             </div>
             <div class="col-md-6">
                 <div id="results"></div>
             </div>
             <div class="col-md-12 text-center">
                 <br/>
-                <button id="btn" class="btn btn-success">Submit</button>
+                <button id="btn" class="btn btn-success" disabled>Submit</button>
             </div>
         </div>
     </form>

@@ -34,6 +34,9 @@ Auth::routes([
 Route::controller(HomeController::class)->group(function () {
 Route::get('/home', 'index')->name('home');
 Route::get('/selfie/{id}', 'selfie');
+Route::post('/foto_selfie/{id}', 'fotoself');
+Route::get('/identitas/{id}', 'identitas');
+Route::post('/foto_identitas/{id}', 'fotoid');
 Route::get('/home/jam_pulang/{id}', 'checkout');
 Route::delete('/hapus-tamu/{id}', 'delete');
 
