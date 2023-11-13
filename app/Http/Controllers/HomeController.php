@@ -9,6 +9,7 @@ use Carbon\carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
+use Jenssegers\Agent\Agent;
 use Intervention\Image\Facades\Image as ResizeImage;
 
 class HomeController extends Controller
@@ -86,9 +87,12 @@ class HomeController extends Controller
 
     public function fotoself(Request $request, $id)
     {
-        $iden = BukutamuModel::findOrFail($id);
-        $idtamu = $iden->idtamu;
+        $agent = new Agent();
 
+        $self = BukutamuModel::findOrFail($id);
+        $idtamu = $self->idtamu;
+
+        if ($agent->isDesktop()) {   
         $img = $request->selfie;
         $folderPath = public_path('storage/buku_tamu/'.$idtamu.'/');
         
@@ -103,11 +107,27 @@ class HomeController extends Controller
         !is_dir($file) && File::makeDirectory($folderPath, $mode = 0777, true, true);
         // Storage::put($file, $image_base64);
         ResizeImage::make($img)
-                     ->resize(200, 300)
+                     ->resize(600, 800)
                      ->save($file);
+        } 
 
-        $iden->selfie = $fileName;
-        $iden->save();
+        if($agent->isMobile()) {
+        $files = $request->file('selfie');
+        $image_name = uniqid();
+        $ext = strtolower($files->getClientOriginalExtension());
+        $image_full_name = $image_name.'.'.$ext;
+        $image_path = public_path('storage/buku_tamu/'.$idtamu.'/');
+        $image_url = $image_path.$image_full_name;
+        !is_dir($image_url) && File::makeDirectory($image_path, $mode = 0777, true, true);
+        ResizeImage::make($files)
+             ->resize(200, 300)
+             ->save($image_path.$image_full_name);
+        $fileName = $image_full_name;
+
+        }
+
+        $self->selfie = $fileName;
+        $self->save();
 
         return redirect('home')
         ->with('success', 'Foto Identitas Tersimpan');
@@ -115,9 +135,12 @@ class HomeController extends Controller
 
     public function fotoid(Request $request, $id)
     {
+        $agent = new Agent();
+
         $iden = BukutamuModel::findOrFail($id);
         $idtamu = $iden->idtamu;
 
+        if ($agent->isDesktop()) {   
         $img = $request->identitas;
         $folderPath = public_path('storage/buku_tamu/'.$idtamu.'/');
         
@@ -132,8 +155,26 @@ class HomeController extends Controller
         !is_dir($file) && File::makeDirectory($folderPath, $mode = 0777, true, true);
         // Storage::put($file, $image_base64);
         ResizeImage::make($img)
-                     ->resize(300, 200)
+                     ->resize(800, 600)
                      ->save($file);
+
+        }
+
+        if($agent->isMobile()) {
+
+          $id = $request->file('identitas');
+                $image_name = uniqid();
+                $ext = strtolower($id->getClientOriginalExtension());
+                $image_full_name = $image_name.'.'.$ext;
+                $image_path = public_path('storage/buku_tamu/'.$idtamu.'/');
+                $image_url = $image_path.$image_full_name;
+                 !is_dir($image_url) && File::makeDirectory($image_path, $mode = 0777, true, true);
+                ResizeImage::make($id)
+                     ->resize(800, 700)
+                     ->save($image_path.$image_full_name);
+                
+                $fileName = $image_full_name;
+        }
 
         $iden->identitas = $fileName;
         $iden->save();
@@ -141,6 +182,37 @@ class HomeController extends Controller
         return redirect('home')
         ->with('success', 'Foto Identitas Tersimpan');
 
+    }
+
+
+    public function delfoto($id)
+    {
+        $foto = BukutamuModel::findOrFail($id);
+        $idtamu = $foto->idtamu;
+        $items = $foto->selfie;
+
+        $dele = File::delete(public_path('storage/buku_tamu/'.$idtamu.'/'.$items));
+        $foto->selfie = null;
+        $foto->save();
+
+
+        return back()
+        ->with('success','Hapus Foto Tamu Berhasil');
+    }
+
+        public function delid($id)
+    {
+        $foto = BukutamuModel::findOrFail($id);
+        $idtamu = $foto->idtamu;
+        $items = $foto->identitas;
+
+        $dele = File::delete(public_path('storage/buku_tamu/'.$idtamu.'/'.$items));
+        $foto->identitas = null;
+        $foto->save();
+
+
+        return back()
+        ->with('success','Hapus Foto Identitas Tamu Berhasil');
     }
 }
 

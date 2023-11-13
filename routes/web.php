@@ -39,6 +39,8 @@ Route::get('/identitas/{id}', 'identitas');
 Route::post('/foto_identitas/{id}', 'fotoid');
 Route::get('/home/jam_pulang/{id}', 'checkout');
 Route::delete('/hapus-tamu/{id}', 'delete');
+Route::get('/hapus_foto_selfie/{id}', 'delfoto');
+Route::get('/hapus_foto_id/{id}', 'delid');
 
 
 });

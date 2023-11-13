@@ -105,7 +105,7 @@
 
                 <div class="card-body pt-1">
                     <form method="POST" action="{{route('simpan')}}" enctype="multipart/form-data">
-                        @csrf
+                        @csrf <!-- {{ csrf_field() }} -->
 <div class="mb-2" >
 <font size="2" color="red">*</font><font size="1"> Menunjukkan kolom yang wajib diisi</font>
 </div>
