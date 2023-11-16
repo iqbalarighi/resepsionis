@@ -32,6 +32,10 @@
 <style>
 .containerx {
   position: relative;
+  width: 50%;
+}
+.containery {
+  position: relative;
   width: 35%;
 }
 
@@ -63,16 +67,22 @@
   opacity: 1;
 }
 
+.containery:hover .image {
+  opacity: 0.3;
+}
+
+.containery:hover .middle {
+  opacity: 1;
+}
+
 .text {
   color: black;
   font-size: 14px;
   padding: auto;
 }
 </style>
-                <div class="card-body">
-
-                </div>
-                <livewire:bukutamu></livewire:bukutamu>
+                
+                <livewire:bukutamu search=""></livewire:bukutamu>
                 
             </div>
 

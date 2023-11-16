@@ -93,36 +93,36 @@ class HomeController extends Controller
         $idtamu = $self->idtamu;
 
         if ($agent->isDesktop()) {   
-        $img = $request->selfie;
-        $folderPath = public_path('storage/buku_tamu/'.$idtamu.'/');
-        
-        $image_parts = explode(";base64,", $img);
-        $image_type_aux = explode("image/", $image_parts[0]);
-        $image_type = $image_type_aux[1];
-        
-        $image_base64 = base64_decode($image_parts[1]);
-        $fileName = uniqid() . '.png';
-        
-        $file = $folderPath . $fileName;
-        !is_dir($file) && File::makeDirectory($folderPath, $mode = 0777, true, true);
-        // Storage::put($file, $image_base64);
-        ResizeImage::make($img)
-                     ->resize(600, 800)
-                     ->save($file);
+            $img = $request->selfie;
+            $folderPath = public_path('storage/buku_tamu/'.$idtamu.'/');
+            
+            $image_parts = explode(";base64,", $img);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            
+            $image_base64 = base64_decode($image_parts[1]);
+            $fileName = uniqid() . '.png';
+            
+            $file = $folderPath . $fileName;
+            !is_dir($file) && File::makeDirectory($folderPath, $mode = 0777, true, true);
+            // Storage::put($file, $image_base64);
+            ResizeImage::make($img)
+                         ->resize(600, 800)
+                         ->save($file);
         } 
 
         if($agent->isMobile()) {
-        $files = $request->file('selfie');
-        $image_name = uniqid();
-        $ext = strtolower($files->getClientOriginalExtension());
-        $image_full_name = $image_name.'.'.$ext;
-        $image_path = public_path('storage/buku_tamu/'.$idtamu.'/');
-        $image_url = $image_path.$image_full_name;
-        !is_dir($image_url) && File::makeDirectory($image_path, $mode = 0777, true, true);
-        ResizeImage::make($files)
-             ->resize(200, 300)
-             ->save($image_path.$image_full_name);
-        $fileName = $image_full_name;
+            $files = $request->file('selfie');
+            $image_name = uniqid();
+            $ext = strtolower($files->getClientOriginalExtension());
+            $image_full_name = $image_name.'.'.$ext;
+            $image_path = public_path('storage/buku_tamu/'.$idtamu.'/');
+            $image_url = $image_path.$image_full_name;
+            !is_dir($image_url) && File::makeDirectory($image_path, $mode = 0777, true, true);
+            ResizeImage::make($files)
+                 ->resize(600, 800)
+                 ->save($image_path.$image_full_name);
+            $fileName = $image_full_name;
 
         }
 
@@ -170,7 +170,7 @@ class HomeController extends Controller
                 $image_url = $image_path.$image_full_name;
                  !is_dir($image_url) && File::makeDirectory($image_path, $mode = 0777, true, true);
                 ResizeImage::make($id)
-                     ->resize(800, 700)
+                     ->resize(800, 600)
                      ->save($image_path.$image_full_name);
                 
                 $fileName = $image_full_name;

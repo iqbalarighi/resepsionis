@@ -39,6 +39,7 @@ class Bukutamu extends Controller
                 $image_url = $image_path.$image_full_name;
                 !is_dir($image_url) && File::makeDirectory($image_path, $mode = 0777, true, true);
                 ResizeImage::make($files)
+                     ->orientate()
                      ->resize(200, 300)
                      ->save($image_path.$image_full_name);
                 // $files->move($image_path, $image_full_name);
