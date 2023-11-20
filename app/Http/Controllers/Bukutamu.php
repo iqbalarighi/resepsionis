@@ -68,6 +68,8 @@ class Bukutamu extends Controller
       $store->nama_lengkap = $request->nama;
       $store->institusi = $request->institusi;
       $store->lantai = $request->lantai;
+      $store->bertemu_dengan = $request->bertemu_dengan;
+      $store->jumlah_tamu = $request->jumlah_tamu;
       $store->kunjungan = $request->kunjungan;
       // $store->identitas = $identitas;
       $store->konfirmasi = $request->confirm8;
@@ -78,8 +80,15 @@ class Bukutamu extends Controller
     
     public function konfirm($nama)
     {   
-        $tamu = $nama;
-        return view('buku_tamu.konfirmasi', compact('tamu'));
+        $check = BukutamuModel::where('nama_lengkap', '=', $nama)
+                    ->orWhere('created_at', '=', carbon::now())
+                    ->exists();
+    if ($check) {
+        return view('buku_tamu.konfirmasi', compact('nama'));
+    } else {
+        abort(404);
+    }
+
     }
 
 }

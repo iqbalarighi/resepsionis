@@ -150,6 +150,22 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3" >
+                            <label style="vertical-align: middle;" for="bertemu_dengan" class="col-md-4 col-form-label text-md-end">{{ __('Bertemu Dengan') }}<font color="red">*</font></label>
+
+                            <div class="col-md-6 mt-auto mb-auto" >
+                                <input style="vertical-align: middle;" id="bertemu_dengan" type="text" class="form-control" name="bertemu_dengan" required autofocus>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3" >
+                            <label style="vertical-align: middle;" for="jumlah_tamu" class="col-md-4 col-form-label text-md-end">{{ __('Jumlah Tamu') }}<font color="red">*</font></label>
+
+                            <div class="col-md-6 mt-auto mb-auto" >
+                                <input style="vertical-align: middle;" id="jumlah_tamu" type="text" class="form-control" name="jumlah_tamu" required autofocus>
+                            </div>
+                        </div>
+
                         <div class="row mb-2">
                             <label for="foto" class="col-md-4 col-form-label text-md-end mt-auto mb-auto"><i>Upload</i> Foto <i>Selfie</i><font color="red">*</font> </label>
 

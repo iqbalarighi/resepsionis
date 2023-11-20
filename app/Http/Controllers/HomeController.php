@@ -32,8 +32,8 @@ class HomeController extends Controller
     public function index()
     {
         // $tamu = BukutamuModel::paginate(5);
-
-        return view('admin.index');
+         $count = BukutamuModel::get();
+        return view('admin.index', compact('count'));
     }    
 
     public function delete($id)

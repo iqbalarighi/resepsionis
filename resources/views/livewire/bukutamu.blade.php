@@ -1,6 +1,6 @@
 
 <div>
-    <link rel="stylesheet" type="text/css" href="https://w2ui.com/src/w2ui-1.4.2.min.css" />
+    
     <!-- Notifikasi -->
         @if ($message = Session::get('success'))
             <div id="timeout" align="center" class="alert alert-success alert-block flex flex-col gap-4 md:flex-row md:items-center md:justify-between" style="width: 80%; margin: 0 auto;" role="alert">
@@ -21,11 +21,29 @@
     <!-- Notifikasi -->
 
      
-<div class="card-body overflow" style="overflow-x: auto;" wire:poll.2s>
-    <div class="">
-        {{-- <input type="date" class="form-control float-end mb-2 mx-2" wire:model.350ms="date" value="date" style="width: 230px;"> --}}
-        <input type="text" class="form-control float-end mb-2 mx-2" wire:model.350ms="search" placeholder="Cari..." style="width: 230px;">
+
+
+<div class="row align-items-center mt-2 mx-2" style="float: right;">
+    Pilih tanggal : 
+    <div class="col col-sm-auto">
+            <input type="date" class="form-control" id="start" wire:model.debounce.500ms="start" value="" style="width: 230px;">
     </div>
+<div class="col-sm-auto">-</div>
+    <div class="col col-sm-auto">
+            <input type="date" class="form-control ml-2" id="end" wire:model.debounce.500ms="end" value="" style="width: 230px;">
+    </div>
+    <div class="col col-sm-auto">
+        <input type="text" class="form-control ml-2" id="search" wire:model.debounce.500ms="search" placeholder="Cari..." style="width: 230px;">
+        
+    </div>
+    <div class="col col-sm-auto">
+        <span class="btn btn-sm btn-primary ml-2 " wire:click="resetFilters()">Bersihkan</span>
+    </div>
+  </div>
+<br>
+<br>
+<div class="card-body overflow pt-1" style="overflow-x: auto;" wire:poll.2s>
+    <link rel="stylesheet" type="text/css" href="https://w2ui.com/src/w2ui-1.4.2.min.css" />
     <table class="table table-striped table-hover table-sm table-borderless table-responsive" style="">
                         <thead>
                         <tr class="text-center table-info">
@@ -37,6 +55,8 @@
                         @endif
                             <th>Perusahaan / Institusi</th>
                             <th>Lantai Tujuan</th>
+                            <th>Bertemu Dengan</th>
+                            <th>Jumlah Tamu</th>
                             <th>Keperluan</th>
                             <th>Foto Selfie</th>
                             <th>Foto Identitas</th>
@@ -59,6 +79,8 @@
                             @endif
                             <td>{{$item->institusi}}</td>
                             <td>{{$item->lantai}}</td>
+                            <td>{{$item->bertemu_dengan}}</td>
+                            <td align="center">{{$item->jumlah_tamu}}</td>
                             <td style="white-space:normal;">{{$item->kunjungan}}</td>
 
                             <td class="text-center align-middle" valign="middle">
@@ -94,6 +116,7 @@
                         </div>
                         </div>
 </center>
+
                         @endif
                             </td>
 
@@ -122,7 +145,7 @@
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
                                  &nbsp;
-                                <a href="#" onclick="popup2{{$item->id}}()" title="Lihat Foto">
+                                <a href="#" onclick="popupx{{$item->id}}()" title="Lihat Foto">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
                                  &nbsp;
@@ -132,7 +155,8 @@
                             </div>
                         </div>
                         </div>
-</center>                          
+</center>
+
                         @endif
 
                             </td>
@@ -195,28 +219,8 @@
                         </td>
                         @endif
                         </tr>
-<script type="text/javascript">
-    function popup{{$item->id}}() {
-       var image = document.getElementById('img{{$item->id}}').getAttribute('src');
-        w2popup.open({
-            width: 300, 
-            height: 450,
-            title: 'Image',
-            body: '<div class="w2ui-centered"><img src="'+image+'"></img></div>'
-        });
-    }
-</script>
-<script type="text/javascript">
-    function popup2{{$item->id}}() {
-       var image = document.getElementById('imgs{{$item->id}}').getAttribute('src');
-        w2popup.open({
-            width: 815, 
-            height: 635,
-            title: 'Image',
-            body: '<div class="w2ui-centered"><img src="'+image+'"></img></div>'
-        });
-    }
-</script>
+
+
                         @empty
                         <tr>
                             <td colspan="12" align="center" valign="middle">Oops, yang dicari tidak ditemukan</td>
@@ -225,8 +229,8 @@
                         @endforelse
                         </tbody> 
                     </table>
+<script type="text/javascript" src="https://w2ui.com/src/w2ui-1.4.2.min.js"></script>
 </div>
  <div class="p-2 mt-2 float-end ">{{$tamu->links()}}</div>
 </div>
 
-<script type="text/javascript" src="https://w2ui.com/src/w2ui-1.4.2.min.js"></script>

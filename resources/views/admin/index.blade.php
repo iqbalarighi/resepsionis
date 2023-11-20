@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div wire:pool class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-15">
             <div class="card">
                 <div class="card-header">{{ __('Buku Tamu') }}</div>
 @if (session('status'))
@@ -32,11 +32,11 @@
 <style>
 .containerx {
   position: relative;
-  width: 50%;
+  width: 70%;
 }
 .containery {
   position: relative;
-  width: 35%;
+  width: 40%;
 }
 
 .image {
@@ -83,7 +83,30 @@
 </style>
                 
                 <livewire:bukutamu search=""></livewire:bukutamu>
-                
+                @foreach ($count as $key => $test)
+<script type="text/javascript">
+    function popup{{$test->id}}() {
+       var image = document.getElementById('img{{$test->id}}').getAttribute('src');
+        w2popup.open({
+            width: 300, 
+            height: 450,
+            title: 'Image',
+            body: '<div class="w2ui-centered"><img src="'+image+'"></img></div>'
+        });
+    }
+</script>
+<script type="text/javascript">
+    function popupx{{$test->id}}() {
+       var image = document.getElementById('imgs{{$test->id}}').getAttribute('src');
+        w2popup.open({
+            width: 815, 
+            height: 635,
+            title: 'Image',
+            body: '<div class="w2ui-centered"><img src="'+image+'"></img></div>'
+        });
+    }
+</script>
+                @endforeach
             </div>
 
         </div>

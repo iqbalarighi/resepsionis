@@ -12,7 +12,7 @@
 
                 <div class="card-body">
 
-                    Jawaban Bpk/Ibu <b>{{$tamu}}</b> telah dicatat. Terima kasih dan selamat datang di Otoritas Jasa Keuangan Gedung Soemitro Djojohadikusumo.
+                    Jawaban Bpk/Ibu <b>{{$nama}}</b> telah dicatat. Terima kasih dan selamat datang di Otoritas Jasa Keuangan Gedung Soemitro Djojohadikusumo.
                     
                 </div>
             </div>
