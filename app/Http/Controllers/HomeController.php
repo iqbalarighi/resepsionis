@@ -6,6 +6,7 @@ use App\Models\BukutamuModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Carbon\carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
@@ -214,5 +215,81 @@ class HomeController extends Controller
         return back()
         ->with('success','Hapus Foto Identitas Tamu Berhasil');
     }
+
+
+    public function onePDF($start, $end, $search){
+
+            $tamu = BukutamuModel::where('nama_lengkap','like','%'.$search.'%')
+            ->whereDate('created_at', '>=', $start)
+            ->whereDate('created_at', '<=', $end)
+            ->orwhere(function ($query) use ($search,$start,$end) {
+                        $query->where('lantai','LIKE', '%'.$search.'%')
+                            ->whereDate('created_at', '>=', $start)
+                            ->whereDate('created_at', '<=', $end);
+                    })
+                    ->orwhere(function ($querys) use ($search,$start,$end) {
+                        $querys->where('institusi','LIKE', '%'.$search.'%')
+                            ->whereDate('created_at', '>=', $start)
+                            ->whereDate('created_at', '<=', $end);
+                    })
+            ->latest()
+            ->paginate(10000000);
+        
+            if ($tamu->count() != null) {
+                $pdf = PDF::loadView('admin.savepdf', compact('tamu'))->setPaper('a4', 'landscape');
+                if ($start == $end) {
+                   return $pdf->stream('Rekap Buku Tamu '.carbon::parse($start)->isoFormat('D MMM YY').'.pdf');
+                } else {
+                return $pdf->stream('Rekap Buku Tamu '.carbon::parse($start)->isoFormat('D MMM YY').' - '.carbon::parse($end)->isoFormat('D MMM YY').'.pdf');
+                }
+            } else {
+                return redirect('home')
+                ->with('danger', 'Tidak ada data tamu yang di Export');
+            }
+    }
+
+
+    public function twoPDF($start, $end){
+
+            $tamu = BukutamuModel::whereDate('created_at', '>=', $start)
+            ->whereDate('created_at', '<=', $end)
+            ->latest()
+            ->paginate(10000000);
+
+            if ($tamu->count() != null) {
+                $pdf = PDF::loadView('admin.savepdf', compact('tamu'))->setPaper('a4', 'landscape');
+                if ($start == $end) {
+                   return $pdf->stream('Rekap Buku Tamu '.carbon::parse($start)->isoFormat('D MMM YY').'.pdf');
+                } else {
+                return $pdf->stream('Rekap Buku Tamu '.carbon::parse($start)->isoFormat('D MMM YY').' - '.carbon::parse($end)->isoFormat('D MMM YY').'.pdf');
+                }
+                    
+            } else {
+                return redirect('home')
+                ->with('danger', 'Tidak ada data tamu yang di Export');
+            }
+
+    }
+
+    public function triPDF($search){
+
+           $tamu = BukutamuModel::where('nama_lengkap','like','%'.$search.'%')
+            ->orWhere('lantai','like','%'.$search.'%')
+            ->orWhere('institusi','like','%'.$search.'%')
+            ->latest()->paginate(10000000);
+
+            if ($tamu->count() != null) {
+               $pdf = PDF::loadView('admin.savepdf', compact('tamu'))->setPaper('a4', 'landscape');
+                return $pdf->stream('Rekap Buku Tamu.pdf'); 
+            } else {
+                return redirect('home')
+                ->with('danger', 'Tidak ada data tamu yang di Export');
+            }
+
+                
+    }
+
+
 }
 
+                

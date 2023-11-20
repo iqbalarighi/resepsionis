@@ -1,6 +1,14 @@
 
 <div>
-    
+ <div class="card-header">{{ __('Buku Tamu') }}
+    @if($start != null && $end != null && $search != null)
+        <a href="/downloadPDF/{{$start}}/{{$end}}/{{$search}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+    @elseif($start != null && $end != null )
+        <a href="/downloadPDF/{{$start}}/{{$end}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+    @elseif($search != null)
+        <a href="/downloadPDF/{{$search}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+    @endif
+</div>   
     <!-- Notifikasi -->
         @if ($message = Session::get('success'))
             <div id="timeout" align="center" class="alert alert-success alert-block flex flex-col gap-4 md:flex-row md:items-center md:justify-between" style="width: 80%; margin: 0 auto;" role="alert">
@@ -20,6 +28,25 @@
         @endif
     <!-- Notifikasi -->
 
+    <!-- Notifikasi -->
+        @if ($message = Session::get('danger'))
+            <script type="text/javascript">setTimeout("window.close();", 2500);</script>
+            <div id="timeout" align="center" class="alert alert-danger alert-block flex flex-col gap-4 md:flex-row md:items-center md:justify-between" style="width: 80%; margin: 0 auto;" role="alert">
+                <div class="row">
+                    <div class="col">
+        <div class="card-text" align="center">
+                    {{ $message }}
+        </div>
+                    </div>
+                    <div class="col-md-auto">
+        <div style="float: right;">
+        <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close" align="right"></button>
+        </div>                
+                    </div>
+                </div>
+            </div>
+        @endif
+    <!-- Notifikasi -->
      
 
 
@@ -37,7 +64,7 @@
         
     </div>
     <div class="col col-sm-auto">
-        <span class="btn btn-sm btn-primary ml-2 " wire:click="resetFilters()">Bersihkan</span>
+        <span class="btn btn-sm btn-primary ml-2 " wire:click="resetFilters()">Reset</span>
     </div>
   </div>
 <br>
