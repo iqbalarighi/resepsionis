@@ -63,7 +63,7 @@
                             <th width="40px">Jumlah Tamu</th>
                             <th>Keperluan</th>
                             <th width="55px">Foto Selfie</th>
-                            <th>Foto Identitas</th>
+                            <th>Foto<br>Identitas</th>
                             <th width="80px">Waktu Kedatangan</th>
                             <th width="80px">Waktu Kepulangan</th>
                         </tr>
