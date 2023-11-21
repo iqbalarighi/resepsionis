@@ -1,6 +1,6 @@
 
 <div>
- <div class="card-header">{{ __('Buku Tamu') }}
+ <div class="card-header fs-5 fw-bold">{{ __('Buku Tamu') }}
     @if($start != null && $end != null && $search != null)
         <a href="/downloadPDF/{{$start}}/{{$end}}/{{$search}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
     @elseif($start != null && $end != null )
@@ -50,21 +50,21 @@
      
 
 
-<div class="row align-items-center mt-2 mx-2" style="float: right;">
-    Pilih tanggal : 
-    <div class="col col-sm-auto">
+<div class="row row-cols-1 align-items-center my-1 mx-2" style="float: right;">
+    <div class="col col-sm-auto px-0 mt-2">Pilih tanggal : &nbsp;</div> <br>
+    <div class="col col-sm-auto px-0 mt-2">
             <input type="date" class="form-control" id="start" wire:model.debounce.100ms="start" value="" style="width: 230px;">
     </div>
-<div class="col-sm-auto">-</div>
-    <div class="col col-sm-auto">
+    <div class="col col-sm-auto p-0 m-0">-</div>
+    <div class="col col-sm-auto px-0 mt-2">
             <input type="date" class="form-control ml-2" id="end" wire:model.debounce.100ms="end" value="" style="width: 230px;">
     </div>
-    <div class="col col-sm-auto">
+    <div class="col col-sm-auto mt-2">
         <input type="text" class="form-control ml-2" id="search" wire:model.debounce.100ms="search" placeholder="Cari..." style="width: 230px;">
         
     </div>
-    <div class="col col-sm-auto">
-        <span class="btn btn-sm btn-primary ml-2 " wire:click="resetFilters()">Reset</span>
+    <div class="col col-sm-auto m-0 py-0">
+        <span class="btn btn-sm btn-primary px-0 " wire:click="resetFilters()">Reset</span>
     </div>
   </div>
 <br>
@@ -250,7 +250,7 @@
 
                         @empty
                         <tr>
-                            <td colspan="12" align="center" valign="middle">Oops, yang dicari tidak ditemukan</td>
+                            <td colspan=" {{ Auth::user()->role === "superadmin" ? '14' : '12' }}" align="center" valign="middle">Oops, yang dicari tidak ditemukan</td>
                         </tr>
 
                         @endforelse
