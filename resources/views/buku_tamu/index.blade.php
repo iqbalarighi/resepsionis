@@ -76,6 +76,11 @@
 }
 </style>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
 <div class="container" style="background-color: rgb(232 179 179);">
 
         <!-- Notifikasi -->
@@ -143,7 +148,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="kunjungan" class="col-md-4 col-form-label text-md-end">{{ __('Keperluan Kunjungan') }}<font color="red">*</font> <br><font size="1">(Tambahkan nama PIC OJK dan Satker yang dituju)</font></label>
+                            <label for="kunjungan" class="col-md-4 col-form-label text-md-end">{{ __('Keperluan Kunjungan') }}<font color="red">*</font> 
+                                {{-- <br><font size="1">(Tambahkan nama PIC OJK dan Satker yang dituju)</font> --}}
+                            </label>
 
                             <div class="col-md-6 mt-auto mb-auto">
                                 <textarea id="kunjungan" type="text" placeholder="" class="form-control" name="kunjungan" required autofocus></textarea>
@@ -162,7 +169,7 @@
                             <label style="vertical-align: middle;" for="jumlah_tamu" class="col-md-4 col-form-label text-md-end">{{ __('Jumlah Tamu') }}<font color="red">*</font></label>
 
                             <div class="col-md-6 mt-auto mb-auto" >
-                                <input style="vertical-align: middle;" id="jumlah_tamu" type="text" class="form-control" name="jumlah_tamu" required autofocus>
+                                <input style="vertical-align: middle;" id="jumlah_tamu" type="number" class="form-control" name="jumlah_tamu" required autofocus>
                             </div>
                         </div>
 
@@ -342,15 +349,20 @@
                                 </div>
                     </div>
 
-                        <div class="row mb-0">
+                        <div class="row mb-0 ">
                             <div class="col-md-15">
                                 <center>
-                                <button id='button'  class="btn btn-primary" >
+                                <button id='button' type="submit" onclick="load()" class="btn btn-primary " >
                                     {{ __('Kirim') }}
                                 </button>
+                                <span id="loading" class="btn btn-primary " hidden>
+                                     {{ __('Loading...') }} <i class="fa fa-circle-o-notch fa-spin" ></i>
+                                    </div>
+                                </span>
+                            </div>
                                 </center>
                             </div>
-                        </div>
+                        </div> 
                     </form>
                 </div>
             </div>
@@ -493,6 +505,20 @@ modal2.onclick = function() {
     }
     }
 
+</script>
+<script>
+    function load() {
+  var x = document.getElementById("loading");
+  var y = document.getElementById("button");
+  x.hidden = false; 
+  y.hidden = true; 
+
+setTimeout(() => {
+  x.hidden = true;
+  y.hidden = false;
+}, 8000);
+
+}
 </script>
 </div>
 @endsection

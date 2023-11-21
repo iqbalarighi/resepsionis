@@ -82,7 +82,7 @@
 }
 </style>
                 
-                <livewire:bukutamu search=""></livewire:bukutamu>
+                <livewire:bukutamu></livewire:bukutamu>
                 @foreach ($count as $key => $test)
 <script type="text/javascript">
     function popup{{$test->id}}() {
