@@ -13,7 +13,11 @@ class Bukutamu extends Component
     public $start = '';
     public $end = '';
 
-    protected $queryString = ['start' => ['except' => ''],'end'  => ['except' => ''],'search'  => ['except' => '']];
+    protected $queryString = [
+                            'start' => ['except' => ''],
+                            'end'  => ['except' => ''],
+                            'search'  => ['except' => '']
+                        ];
 
     public function render()
     {   

@@ -2,11 +2,17 @@
 <div>
  <div class="card-header fs-5 fw-bold">{{ __('Buku Tamu') }}
     @if($start != null && $end != null && $search != null)
-        <a href="/downloadPDF/{{$start}}/{{$end}}/{{$search}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+        @if($tamu->count() != null)
+            <a href="/downloadPDF/{{$start}}/{{$end}}/{{$search}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+        @endif
     @elseif($start != null && $end != null )
-        <a href="/downloadPDF/{{$start}}/{{$end}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+        @if($tamu->count() != null)
+            <a href="/downloadPDF/{{$start}}/{{$end}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+        @endif
     @elseif($search != null)
-        <a href="/downloadPDF/{{$search}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+        @if($tamu->count() != null)
+            <a href="/downloadPDF/{{$search}}" target="_blank" class="btn btn-danger btn-sm float-end">Import PDF</a>
+        @endif
     @endif
 </div>   
     <!-- Notifikasi -->
