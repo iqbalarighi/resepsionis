@@ -21,7 +21,7 @@
                             padding:0.3rem;
                             vertical-align: middle;
                             max-width:100%;
-                            white-space:nowrap;
+                            white-space: nowrap;
                         }
                         .table th {
                             padding:0.3rem;
@@ -32,7 +32,7 @@
 <style>
 .containerx {
   position: relative;
-  width: 60%;
+  width: 80%;
 }
 .containery {
   position: relative;

@@ -53,14 +53,14 @@
 <div class="row align-items-center mt-2 mx-2" style="float: right;">
     Pilih tanggal : 
     <div class="col col-sm-auto">
-            <input type="date" class="form-control" id="start" wire:model.debounce.500ms="start" value="" style="width: 230px;">
+            <input type="date" class="form-control" id="start" wire:model.debounce.100ms="start" value="" style="width: 230px;">
     </div>
 <div class="col-sm-auto">-</div>
     <div class="col col-sm-auto">
-            <input type="date" class="form-control ml-2" id="end" wire:model.debounce.500ms="end" value="" style="width: 230px;">
+            <input type="date" class="form-control ml-2" id="end" wire:model.debounce.100ms="end" value="" style="width: 230px;">
     </div>
     <div class="col col-sm-auto">
-        <input type="text" class="form-control ml-2" id="search" wire:model.debounce.500ms="search" placeholder="Cari..." style="width: 230px;">
+        <input type="text" class="form-control ml-2" id="search" wire:model.debounce.100ms="search" placeholder="Cari..." style="width: 230px;">
         
     </div>
     <div class="col col-sm-auto">
@@ -69,7 +69,7 @@
   </div>
 <br>
 <br>
-<div class="card-body overflow pt-1" style="overflow-x: auto;" wire:poll.2s>
+<div class="card-body overflow pt-1" style="overflow-x: auto;" wire:poll.1s>
     <link rel="stylesheet" type="text/css" href="https://w2ui.com/src/w2ui-1.4.2.min.css" />
     <table class="table table-striped table-hover table-sm table-borderless table-responsive" style="">
                         <thead>
@@ -104,7 +104,7 @@
                             @if(Auth::user()->role === "superadmin")
                             <td>{{$item->email}}</td>
                             @endif
-                            <td>{{$item->institusi}}</td>
+                            <td style="white-space:normal;">{{$item->institusi}}</td>
                             <td>{{$item->lantai}}</td>
                             <td>{{$item->bertemu_dengan}}</td>
                             <td align="center">{{$item->jumlah_tamu}}</td>

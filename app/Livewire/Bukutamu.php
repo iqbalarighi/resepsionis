@@ -20,7 +20,7 @@ class Bukutamu extends Component
         $end = $this->end;
         
         if(!empty($start) && !empty($end) && !empty($search)){
-            // dd('1');
+
             $tamu = BukutamuModel::where('nama_lengkap','like','%'.$this->search.'%')
             ->whereDate('created_at', '>=', $start)
             ->whereDate('created_at', '<=', $end)
@@ -40,16 +40,15 @@ class Bukutamu extends Component
 
         return view('livewire.bukutamu', compact('tamu'));
         } else if(!empty($start) && !empty($end)){
-            // dd('2');
+            // dd($start.' '.$end);
             $tamu = BukutamuModel::whereDate('created_at', '>=', $start)
             ->whereDate('created_at', '<=', $end)
-            ->latest()
-            ->paginate(10000000)
-            ->appends(request()->input());
+            ->latest()->paginate(10000000)
+            ->appends(compact('start', 'end'));
 
         return view('livewire.bukutamu', compact('tamu'));
         } else if(!empty($search)){
-            // dd('3');
+
            $tamu = BukutamuModel::where('nama_lengkap','like','%'.$this->search.'%')
             ->orWhere('lantai','like','%'.$this->search.'%')
             ->orWhere('institusi','like','%'.$this->search.'%')
@@ -72,6 +71,10 @@ class Bukutamu extends Component
 
     public function resetFilters(){
         $this->reset(['search', 'start','end']);
+    }
+
+    public function updatedEnd(){
+        $this->resetPage();
     }
 
 
