@@ -91,8 +91,8 @@
                             <th>Bertemu Dengan</th>
                             <th>Jumlah Tamu</th>
                             <th>Keperluan</th>
-                            <th>Foto Selfie</th>
-                            <th>Foto Identitas</th>
+                            <th style="width: 50px;">Foto Selfie</th>
+                            <th style="width: 100px;">Foto Identitas</th>
                             <th>Waktu Kedatangan</th>
                             <th>Waktu Kepulangan</th>
                         @if(Auth::user()->role === "superadmin")
@@ -116,7 +116,7 @@
                             <td align="center">{{$item->jumlah_tamu}}</td>
                             <td style="white-space:normal;">{{$item->kunjungan}}</td>
 
-                            <td class="text-center align-middle" valign="middle">
+                            <td class="text-center align-middle p-1" valign="middle">
                         @if($item->selfie == null)
                             @if(Auth::user()->role === "superadmin")
                                     <span align="center" onclick="window.location='/selfie/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
@@ -153,7 +153,7 @@
                         @endif
                             </td>
 
-                            <td class="text-center">
+                            <td class="text-center align-middle p-1">
                         @if($item->identitas == null)
                             @if(Auth::user()->role === "superadmin")
                             <span align="center" onclick="window.location='/identitas/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>

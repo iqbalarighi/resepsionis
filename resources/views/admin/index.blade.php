@@ -32,18 +32,20 @@
 <style>
 .containerx {
   position: relative;
-  width: 80%;
+  width: 100%;
+  height: auto;
 }
 .containery {
   position: relative;
-  width: 70%;
+  width: 100%;
+  height: auto;
 }
 
 .image {
   opacity: 1;
   display: block;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 65px;
   transition: .5s ease;
   backface-visibility: hidden;
 }
