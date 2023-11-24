@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div wire:pool class="row justify-content-center">
-        <div class="col-md-15">
+        <div class="col-md-auto p-0">
             <div class="card">
                 
                         @if (session('status'))
@@ -45,7 +45,7 @@
   opacity: 1;
   display: block;
   width: auto;
-  height: 65px;
+  height: 70px;
   transition: .5s ease;
   backface-visibility: hidden;
 }
@@ -114,5 +114,61 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    window.addEventListener('check-out', event =>{
+        Swal.fire({
+                  title: "Check Out",
+                  text: "Yakin tamu sudah pulang?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  cancelButtonText: "Batal",
+                  confirmButtonText: "Check Out"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Livewire.dispatch('checkConfirmed')
+                  }
+                });
+    });
+    
+    window.addEventListener('checked', event =>{
+        Swal.fire({
+          title: "Checked Out!",
+          text: "Check out tamu berhasil",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+    });
 
+    window.addEventListener('delete-tamu', event =>{
+        Swal.fire({
+                  title: "Hapus Tamu ?",
+                  text: "Yakin data tamu ingin dihapus ?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  cancelButtonText: "Batal",
+                  confirmButtonText: "Hapus"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Livewire.dispatch('deleted')
+                  }
+                });
+    });
+
+    window.addEventListener('terhapus', event =>{
+        Swal.fire({
+          title: "Berhasil",
+          text:  "Data tamu telah terapus !",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+    });
+
+
+</script>
 @endsection

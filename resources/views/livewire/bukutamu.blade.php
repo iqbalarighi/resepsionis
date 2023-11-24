@@ -75,7 +75,7 @@
   </div>
 <br>
 <br>
-<div class="card-body overflow pt-1" style="overflow-x: auto;" wire:poll.1s>
+<div class="card-body overflow pt-1" style="overflow-x: auto;" wire:poll.2s>
     <link rel="stylesheet" type="text/css" href="https://w2ui.com/src/w2ui-1.4.2.min.css" />
     <table class="table table-striped table-hover table-sm table-borderless table-responsive" style="">
                         <thead>
@@ -91,8 +91,8 @@
                             <th>Bertemu Dengan</th>
                             <th>Jumlah Tamu</th>
                             <th>Keperluan</th>
-                            <th style="width: 50px;">Foto Selfie</th>
-                            <th style="width: 100px;">Foto Identitas</th>
+                            <th width="60px">Foto Selfie</th>
+                            <th width="110px">Foto Identitas</th>
                             <th>Waktu Kedatangan</th>
                             <th>Waktu Kepulangan</th>
                         @if(Auth::user()->role === "superadmin")
@@ -112,19 +112,19 @@
                             @endif
                             <td style="white-space:normal;">{{$item->institusi}}</td>
                             <td>{{$item->lantai}}</td>
-                            <td>{{$item->bertemu_dengan}}</td>
+                            <td style="white-space:normal;">{{$item->bertemu_dengan}}</td>
                             <td align="center">{{$item->jumlah_tamu}}</td>
                             <td style="white-space:normal;">{{$item->kunjungan}}</td>
 
                             <td class="text-center align-middle p-1" valign="middle">
                         @if($item->selfie == null)
                             @if(Auth::user()->role === "superadmin")
-                                    <span align="center" onclick="window.location='/selfie/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
+                                    <span align="center" onclick="window.location='/selfie/{{$item->id}}'" title="Klik untuk upload foto tamu" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> </span>
                             @else
                                 @if(Carbon\Carbon::now()->isoFormat('D/M/YY') == Carbon\carbon::parse($item->created_at)->isoFormat('D/M/YY'))
-                                    <span align="center" onclick="window.location='/selfie/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
+                                    <span align="center" onclick="window.location='/selfie/{{$item->id}}'" title="Klik untuk upload foto tamu" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> </span>
                                 @else
-                                    <span align="center" title="Klik Untuk Upload Foto Personil" class="btn btn-secondary btn-sm" style="cursor: not-allowed;"><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
+                                    <span align="center" title="Klik untuk upload foto tamu" class="btn btn-secondary btn-sm" style="cursor: not-allowed;"><i class="bi bi-camera-fill" style="font-size: 14px; "></i>  </span>
                                 @endif
                             @endif
                         @else 
@@ -134,11 +134,11 @@
 
                         <div class="middle">
                             <div class="text">
-                                <a href="/selfie/{{$item->id}}" title="Ubah Foto" onclick="return confirm('Ubah Foto Tamu?')">
+                                <a href="javascript:void(0)" wire:click.prevent='ubahFoto({{$item->id}})' title="Ubah Foto">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
                                 <br>
-                                <a href="#" onclick="popup{{$item->id}}()" title="Lihat Foto">
+                                <a href="javascript:void(0)" onclick="popup{{$item->id}}()" title="Lihat Foto">
                                     <i class="bi bi-eye-fill" style></i>
                                 </a>
                                 <br>
@@ -151,17 +151,35 @@
 </center>
 
                         @endif
+<script>
+        window.addEventListener('edit-foto', event =>{
+        Swal.fire({
+                  title: "Ubah Foto Tamu ?",
+                  text: "Ubah / Ganti foto tamu ?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  cancelButtonText: "Batal",
+                  confirmButtonText: "Okay"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Livewire.dispatch('ubah')
+                  }
+                });
+    });
+</script>
                             </td>
 
                             <td class="text-center align-middle p-1">
                         @if($item->identitas == null)
                             @if(Auth::user()->role === "superadmin")
-                            <span align="center" onclick="window.location='/identitas/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
+                            <span align="center" onclick="window.location='/identitas/{{$item->id}}'" title="Klik untuk upload identitas tamu" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> </span>
                             @else
                                 @if(Carbon\Carbon::now()->isoFormat('D/M/YY') == Carbon\carbon::parse($item->created_at)->isoFormat('D/M/YY'))
-                                    <span align="center" onclick="window.location='/identitas/{{$item->id}}'" title="Klik Untuk Upload Foto Personil" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
+                                    <span align="center" onclick="window.location='/identitas/{{$item->id}}'" title="Klik untuk upload identitas tamu" class="btn btn-primary btn-sm" style=""><i class="bi bi-camera-fill" style="font-size: 14px; "></i>  </span>
                                 @else
-                                    <span align="center"title="Klik Untuk Upload Foto Personil" class="btn btn-secondary btn-sm" style="cursor: not-allowed;"><i class="bi bi-camera-fill" style="font-size: 14px; "></i> &nbsp; Ambil Foto </span>
+                                    <span align="center"title="Klik untuk upload identitas tamu" class="btn btn-secondary btn-sm" style="cursor: not-allowed;"><i class="bi bi-camera-fill" style="font-size: 14px; "></i> </span>
                                 @endif
                             @endif
                             
@@ -178,7 +196,7 @@
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
                                  &nbsp;
-                                <a href="#" onclick="popupx{{$item->id}}()" title="Lihat Foto">
+                                <a href="javascript:void(0)" onclick="popupx{{$item->id}}()" title="Lihat Foto">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
                                  &nbsp;
@@ -201,19 +219,20 @@
                                 @if($item->jam_pulang == null)
                                     @if(Auth::user()->role === "superadmin")
                                        <center> 
-                                            <a href="/home/jam_pulang/{{$item->id}}">
-                                                <span class="btn btn-sm btn-primary" onclick="return confirm('Keperluan Tamu Selesai ?')">
-                                                    Check Out
-                                                </span>
+                                            <a href="javascript:void(0)" wire:click.prevent='checkConfirm({{$item->id}})' class="btn btn-sm btn-primary">
+                                                {{-- <span c onclick="return confirm('Keperluan Tamu Selesai ?')">
+                                                    
+                                                </span> --}}
+                                                Check Out
                                             </a>
                                         </center>
                                     @else
                                         @if(Carbon\Carbon::now()->isoFormat('D/M/YY') == Carbon\carbon::parse($item->created_at)->isoFormat('D/M/YY'))
                                             <center> 
-                                                <a href="/home/jam_pulang/{{$item->id}}">
-                                                    <span class="btn btn-sm btn-primary" onclick="return confirm('Keperluan Tamu Selesai ?')">
-                                                        Check Out
-                                                    </span>
+                                                <a href="/home/jam_pulang/{{$item->id}}" wire:click.prevent='checkConfirm({{$item->id}})' class="btn btn-sm btn-primary">
+                                                    {{-- <span  onclick="return confirm('Keperluan Tamu Selesai ?')">
+                                                    </span> --}}
+                                                    Check Out
                                                 </a>
                                             </center>
                                         @else
@@ -230,8 +249,8 @@
                                 @endif
                             </td>
                         @if(Auth::user()->role === "superadmin")
-                        <td style="vertical-align: middle;">
-                        <div class="d-flex align-content-center" >
+                        <td style="vertical-align: middle;" align="center">
+                        
                         {{-- <a href="{{url('temuan-edit')}}/{{$item->id}}" hidden>
                             <button id="{{$tamu->firstitem() + $key}}" type="submit" title="Edit Data ">
                             </button>
@@ -239,15 +258,15 @@
                         <label style="cursor: pointer;" for="{{$tamu->firstitem() + $key}}" title="klik untuk edit laporan" class="bi bi-pencil-fill bg-warning btn btn-sm align-self-center"></label> --}}
                         
                         {{-- <pre> </pre> --}}
-                        <form action="{{url('hapus-tamu')}}/{{$item->id}}" method="post" class="align-self-center m-auto">
+                        {{-- <form action="{{url('hapus-tamu')}}/{{$item->id}}" method="post" class="align-self-center m-auto">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                         <button id="del{{$tamu->firstitem() + $key}}" onclick="return confirm('Yakin data tamu ingin di hapus ?')" type="submit" title="Hapus Data" hidden>
                         </button>
                     <label style="cursor: pointer;" for="del{{$tamu->firstitem() + $key}}" title="klik untuk hapus laporan" class="bi bi-trash-fill bg-danger btn btn-sm align-self-center"></label>
-                        </form>
+                        </form> --}}
+                        <a href="javascript:void(0)" wire:click.prevent='deleteId({{$item->id}})' class="bi bi-trash-fill bg-danger btn btn-sm align-self-center" style="color: white;"></a>
                         
-                        </div>
 
                         </td>
                         @endif

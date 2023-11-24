@@ -37,43 +37,43 @@ class HomeController extends Controller
         return view('admin.index', compact('count'));
     }    
 
-    public function delete($id)
-    {
-        $delete = BukutamuModel::findOrFail($id);
-        $idtamu = $delete->idtamu;
+    // public function delete($id)
+    // {
+    //     $delete = BukutamuModel::findOrFail($id);
+    //     $idtamu = $delete->idtamu;
 
-        if ($delete->selfie == null){
-            $delete->delete();
-            $message = 'Data Tamu Sudah Terhapus';
-        } else {
+    //     if ($delete->selfie == null){
+    //         $delete->delete();
+    //         $message = 'Data Tamu Sudah Terhapus';
+    //     } else {
 
-        $del = File::deleteDirectory(public_path('storage/buku_tamu/'.$idtamu));
+    //     $del = File::deleteDirectory(public_path('storage/buku_tamu/'.$idtamu));
        
-           if ($del == true) {
-                $delete->delete();
-                $message = 'Daftar Tamu Sudah Terhapus';
-           } else {
-             $message = "Hapus data gagal !!!";
-           } 
+    //        if ($del == true) {
+    //             $delete->delete();
+    //             $message = 'Daftar Tamu Sudah Terhapus';
+    //        } else {
+    //          $message = "Hapus data gagal !!!";
+    //        } 
 
-        }
+    //     }
 
-       return back()
-       ->with('success', $message);
-    }
+    //    return back()
+    //    ->with('success', $message);
+    // }
 
-    public function checkout($id)
-    {
-        $check = BukutamuModel::findOrFail($id);
+    // public function checkout($id)
+    // {
+    //     $check = BukutamuModel::findOrFail($id);
 
-        $check->jam_pulang = Carbon::now();
-        $check->save();
+    //     $check->jam_pulang = Carbon::now();
+    //     $check->save();
 
-    $message = "Berhasil";
+    // $message = "Berhasil";
 
-        return back()
-        ->with('success', $message);
-    }
+    //     return back()
+    //     ->with('success', $message);
+    // }
 
 
     public function selfie($id)

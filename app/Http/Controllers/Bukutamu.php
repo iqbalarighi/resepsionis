@@ -20,7 +20,7 @@ class Bukutamu extends Controller
 
     public function store(Request $request)
     {
-        sleep(3);
+        sleep(4);
       $year = Carbon::now()->format('Y');
       $month = Carbon::now()->format('m');
       $th = Str::substr($year, -2);
