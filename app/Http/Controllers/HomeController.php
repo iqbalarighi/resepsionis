@@ -186,35 +186,35 @@ class HomeController extends Controller
     }
 
 
-    public function delfoto($id)
-    {
-        $foto = BukutamuModel::findOrFail($id);
-        $idtamu = $foto->idtamu;
-        $items = $foto->selfie;
+    // public function delfoto($id)
+    // {
+    //     $foto = BukutamuModel::findOrFail($id);
+    //     $idtamu = $foto->idtamu;
+    //     $items = $foto->selfie;
 
-        $dele = File::delete(public_path('storage/buku_tamu/'.$idtamu.'/'.$items));
-        $foto->selfie = null;
-        $foto->save();
-
-
-        return back()
-        ->with('success','Hapus Foto Tamu Berhasil');
-    }
-
-        public function delid($id)
-    {
-        $foto = BukutamuModel::findOrFail($id);
-        $idtamu = $foto->idtamu;
-        $items = $foto->identitas;
-
-        $dele = File::delete(public_path('storage/buku_tamu/'.$idtamu.'/'.$items));
-        $foto->identitas = null;
-        $foto->save();
+    //     $dele = File::delete(public_path('storage/buku_tamu/'.$idtamu.'/'.$items));
+    //     $foto->selfie = null;
+    //     $foto->save();
 
 
-        return back()
-        ->with('success','Hapus Foto Identitas Tamu Berhasil');
-    }
+    //     return back()
+    //     ->with('success','Hapus Foto Tamu Berhasil');
+    // }
+
+    //     public function delid($id)
+    // {
+    //     $foto = BukutamuModel::findOrFail($id);
+    //     $idtamu = $foto->idtamu;
+    //     $items = $foto->identitas;
+
+    //     $dele = File::delete(public_path('storage/buku_tamu/'.$idtamu.'/'.$items));
+    //     $foto->identitas = null;
+    //     $foto->save();
+
+
+    //     return back()
+    //     ->with('success','Hapus Foto Identitas Tamu Berhasil');
+    // }
 
 
     public function onePDF($start, $end, $search){

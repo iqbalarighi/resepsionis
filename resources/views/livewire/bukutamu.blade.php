@@ -142,7 +142,7 @@
                                     <i class="bi bi-eye-fill" style></i>
                                 </a>
                                 <br>
-                                <a href="/hapus_foto_selfie/{{$item->id}}" title="Hapus Foto" onclick="return confirm('Hapus Foto Tamu?')">
+                                <a href="javascript:void(0)" wire:click.prevent='hapusTo({{$item->id}})' title="Hapus Foto" >
                                     <i class="bi bi-trash3-fill"></i>
                                 </a>
                             </div>
@@ -156,7 +156,7 @@
         Swal.fire({
                   title: "Ubah Foto Tamu ?",
                   text: "Ubah / Ganti foto tamu ?",
-                  icon: "warning",
+                  icon: "question",
                   showCancelButton: true,
                   confirmButtonColor: "#3085d6",
                   cancelButtonColor: "#d33",
@@ -167,6 +167,33 @@
                     Livewire.dispatch('ubah')
                   }
                 });
+    });
+
+        window.addEventListener('hapus-foto', event =>{
+        Swal.fire({
+                  title: "Hapus Foto Tamu ?",
+                  text: "Yakin foto tamu ingin di hapus ?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  cancelButtonText: "Batal",
+                  confirmButtonText: "Okay"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Livewire.dispatch('hapusFoto')
+                  }
+                });
+    });
+
+        window.addEventListener('donedel', event =>{
+        Swal.fire({
+          title: "Berhasil",
+          text:  "Foto tamu telah terapus !",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
     });
 </script>
                             </td>
@@ -192,15 +219,16 @@
 
                         <div class="middle">
                             <div class="text">
-                                <a href="/identitas/{{$item->id}}" title="Ubah Foto" onclick="return confirm('Ubah Foto Tamu?')">
+                                <a href="javascript:void(0)" wire:click.prevent='ubahIdentitas({{$item->id}})' title="Ubah Foto">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
+                                {{-- href="/identitas/{{$item->id}}"  --}}
                                  &nbsp;
                                 <a href="javascript:void(0)" onclick="popupx{{$item->id}}()" title="Lihat Foto">
                                     <i class="bi bi-eye-fill"></i>
                                 </a>
                                  &nbsp;
-                                <a href="/hapus_foto_id/{{$item->id}}" title="Hapus Foto" onclick="return confirm('Hapus Foto Tamu?')">
+                                <a href="javascript:void(0)" wire:click.prevent='hapusIdentitas({{$item->id}})' title="Hapus Foto" >
                                     <i class="bi bi-trash3-fill"></i>
                                 </a>
                             </div>
@@ -209,7 +237,51 @@
 </center>
 
                         @endif
+<script>
+        window.addEventListener('edit-id', event =>{
+        Swal.fire({
+                  title: "Ubah Identitas Tamu ?",
+                  text: "Ubah / Ganti identitas tamu ?",
+                  icon: "question",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  cancelButtonText: "Batal",
+                  confirmButtonText: "Okay"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Livewire.dispatch('ubahId')
+                  }
+                });
+    });
 
+        window.addEventListener('hapus-id', event =>{
+        Swal.fire({
+                  title: "Hapus Foto Identitas Tamu ?",
+                  text: "Yakin foto identitas tamu ingin di hapus ?",
+                  icon: "warning",
+                  showCancelButton: true,
+                  confirmButtonColor: "#3085d6",
+                  cancelButtonColor: "#d33",
+                  cancelButtonText: "Batal",
+                  confirmButtonText: "Okay"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Livewire.dispatch('hapusId')
+                  }
+                });
+    });
+
+        window.addEventListener('doneid', event =>{
+        Swal.fire({
+          title: "Berhasil",
+          text:  "Foto tamu telah terapus !",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 1500
+        });
+    });
+</script>
                             </td>
 
                             <td>{{Carbon\carbon::parse($item->created_at)->isoFormat('HH:mm')}} WIB</td>

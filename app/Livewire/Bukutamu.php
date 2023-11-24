@@ -22,12 +22,17 @@ class Bukutamu extends Component
                         ];
     public $check_id;
     public $delete_id;
-    public $ubah_id;
+    public $identitas_id;
+    public $hasto_id;
+    // public $identitas_id;
 
     protected $listeners = [
         'checkConfirmed'=>'checkOut',
         'deleted'=>'hapus',
-        'ubah'=>'ubahFo'
+        'ubah'=>'ubahFo',
+        'hapusFoto'=>'hasTo',
+        'ubahId'=>'ubahIds',
+        'hapusId'=>'hapusIds'
     ];
     
     public function checkConfirm($id)
@@ -54,13 +59,13 @@ class Bukutamu extends Component
 
     public function ubahFoto($id)
     {
-        $this->ubah_id = $id;
+        $this->identitas_id = $id;
         $this->dispatch('edit-foto');
     }
 
     public function ubahFo()
     { 
-       return redirect('selfie/'.$this->ubah_id);
+       return redirect('selfie/'.$this->identitas_id);
     }
 
     public function hapus()
@@ -84,6 +89,60 @@ class Bukutamu extends Component
 
         }
         
+    }
+
+// href="/hapus_foto_selfie/{{$item->id}}" 
+
+    public function hapusTo($id)
+    {
+        $this->hasto_id = $id;
+        $this->dispatch('hapus-foto');
+    }
+
+     public function hasTo()
+     {  
+        $id = $this->hasto_id;
+         
+            $foto = BukutamuModel::findOrFail($id);
+            $idtamu = $foto->idtamu;
+            $items = $foto->selfie;
+
+            $dele = File::delete(public_path('storage/buku_tamu/'.$idtamu.'/'.$items));
+            $foto->selfie = null;
+            $foto->save();
+
+            $this->dispatch('donedel');
+     }
+
+     public function ubahIdentitas($id)
+     {
+        $this->identitas_id = $id;
+        $this->dispatch('edit-id');
+     }
+
+     public function ubahIds()
+     {
+         return redirect('identitas/'.$this->identitas_id);
+     }
+
+    public function hapusIdentitas($id)
+    {
+        $this->identitas_id = $id;
+        $this->dispatch('hapus-id');
+    }
+
+    public function hapusIds()
+    {
+        $id = $this->identitas_id;
+        $foto = BukutamuModel::findOrFail($id);
+        $idtamu = $foto->idtamu;
+        $items = $foto->identitas;
+
+        $dele = File::delete(public_path('storage/buku_tamu/'.$idtamu.'/'.$items));
+        $foto->identitas = null;
+        $foto->save();
+
+        $this->dispatch('doneid');
     }
 
     public function render()
