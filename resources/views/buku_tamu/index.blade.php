@@ -355,10 +355,7 @@
                                 <button id='button' type="submit" onclick="load()" class="btn btn-primary " >
                                     {{ __('Kirim') }}
                                 </button>
-                                <span id="loading" class="btn btn-primary " hidden>
-                                     {{ __('Loading...') }} <i class="fa fa-circle-o-notch fa-spin" ></i>
-                                    </div>
-                                </span>
+                             </div>
                             </div>
                                 </center>
                             </div>
@@ -506,7 +503,7 @@ modal2.onclick = function() {
     }
 
 </script>
-<script>
+{{-- <script>
     function load() {
   var x = document.getElementById("loading");
   var y = document.getElementById("button");
@@ -518,6 +515,67 @@ setTimeout(() => {
   y.hidden = false;
 }, 8000);
 
+}
+</script> --}}
+
+
+<script>
+    function load() {
+
+       let nama = document.getElementById("nama").value;
+       var c1 = document.getElementById("confirm1");
+       var c2 = document.getElementById("confirm2");
+       var c3 = document.getElementById("confirm3");
+       var c4 = document.getElementById("confirm4");
+       var c5 = document.getElementById("confirm5");
+       var c6 = document.getElementById("confirm6");
+       var c7 = document.getElementById("confirm7");
+       var c8 = document.getElementById("confirm8");
+
+    if (document.getElementById('email').value == ""){
+        document.getElementById('email').focus();
+    } else if (document.getElementById("nama").value == ""){
+        document.getElementById("nama").focus();
+    } else if (document.getElementById("institusi").value == ""){
+        document.getElementById("institusi").focus();
+    } else if (document.getElementById("lantai").value == ""){
+        document.getElementById("lantai").focus();
+    } else if (document.getElementById("kunjungan").value == ""){
+        document.getElementById("kunjungan").focus();
+    } else if (document.getElementById("bertemu_dengan").value == ""){
+        document.getElementById("bertemu_dengan").focus();
+    } else if (document.getElementById("jumlah_tamu").value == ""){
+        document.getElementById("jumlah_tamu").focus();
+    } else if(c1.checked === false) {
+        c1.focus();
+    } else if(c2.checked === false) {
+        c2.focus();
+    } else if(c3.checked === false) {
+        c3.focus();
+    } else if(c4.checked === false) {
+        c4.focus();
+    } else if(c5.checked === false) {
+        c5.focus();
+    } else if(c6.checked === false) {
+        c6.focus();
+    } else if(c7.checked === false) {
+        c7.focus();
+    } else if(c8.checked === false) {
+        c8.focus();
+    } else {
+        Swal.fire({
+            title: "Sedang Mengirim. . . ",
+            html: "Jawaban Bpk/Ibu <b>"+ nama + "</b> sedang di proses",
+            showConfirmButton: false,
+            backdrop: `
+                rgb(232,179,179, 0.4)
+              `,
+              didOpen: () => {
+                Swal.showLoading();
+            }, 
+            allowOutsideClick: false,
+            }); 
+        }
 }
 </script>
 </div>
