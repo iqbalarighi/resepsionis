@@ -355,6 +355,6 @@
                     </table>
 <script type="text/javascript" src="https://w2ui.com/src/w2ui-1.4.2.min.js"></script>
 </div>
- <div class="p-2 mt-2 float-end ">{{$tamu->links()}}</div>
+ <div class="p-2 mt-2 float-end">{{$tamu->onEachSide(1)->links()}}</div>
 </div>
 
